@@ -20,8 +20,8 @@ module Pod
           ['--exclude-deps', 'Exclude symbols from dependencies.'],
           ['--configuration', 'Build the specified configuration (e.g. Debug). Defaults to Release'],
           ['--subspecs', 'Only include the given subspecs'],
-          ['--spec-sources=private,https://github.com/CocoaPods/Specs.git', 'The sources to pull dependent ' \
-            'pods from (defaults to https://github.com/CocoaPods/Specs.git)']
+          ['--spec-sources=private,https://cdn.cocoapods.org', 'The sources to pull dependent ' \
+            'pods from (defaults to https://cdn.cocoapods.org)']
         ]
       end
 
@@ -45,7 +45,7 @@ module Pod
         @exclude_deps = argv.flag?('exclude-deps', false)
         @name = argv.shift_argument
         @source = argv.shift_argument
-        @spec_sources = argv.option('spec-sources', 'https://github.com/CocoaPods/Specs.git').split(',')
+        @spec_sources = argv.option('spec-sources', 'https://cdn.cocoapods.org').split(',')
 
         subspecs = argv.option('subspecs')
         @subspecs = subspecs.split(',') unless subspecs.nil?

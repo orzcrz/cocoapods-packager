@@ -22,7 +22,7 @@ module Pod
       Pod::Config.instance.sources_manager.stubs(:search).returns(nil)
       nil::NilClass.any_instance.stubs(:install!)
       Installer.expects(:new).with {
-          |sandbox, podfile| podfile.sources == ['https://github.com/CocoaPods/Specs.git']
+          |sandbox, podfile| podfile.sources == ['https://cdn.cocoapods.org']
         }
 
       command = Command.parse(%w{ package spec/fixtures/KFData.podspec })

@@ -135,9 +135,9 @@ module Pod
     end
 
     def build_sim_libraries(defines)
-      if @platform.name == :ios
-        xcodebuild(defines, '-sdk iphonesimulator', 'build-sim')
-      end
+      # if @platform.name == :ios
+      #   xcodebuild(defines, '-sdk iphonesimulator', 'build-sim')
+      # end
     end
 
     def build_static_library_for_ios(output)
@@ -159,7 +159,7 @@ module Pod
     def build_with_mangling(options)
       UI.puts 'Mangling symbols'
       defines = Symbols.mangle_for_pod_dependencies(@spec.name, @static_sandbox_root)
-      defines << ' ' << @spec.consumer(@platform).compiler_flags.join(' ')
+      # defines << ' ' << @spec.consumer(@platform).compiler_flags.join(' ')
 
       UI.puts 'Building mangled framework'
       xcodebuild(defines, options)
@@ -177,7 +177,7 @@ module Pod
 
     def compile
       defines = "GCC_PREPROCESSOR_DEFINITIONS='$(inherited) PodsDummy_Pods_#{@spec.name}=PodsDummy_PodPackage_#{@spec.name}'"
-      defines << ' ' << @spec.consumer(@platform).compiler_flags.join(' ')
+      # defines << ' ' << @spec.consumer(@platform).compiler_flags.join(' ')
 
       if @platform.name == :ios
         options = ios_build_options
@@ -300,11 +300,11 @@ MAP
     end
 
     def ios_build_options
-      "ARCHS=\'#{ios_architectures.join(' ')}\' OTHER_CFLAGS=\'-fembed-bitcode -Qunused-arguments\'"
+      "ARCHS=\'#{ios_architectures.join(' ')}\'"
     end
 
     def ios_architectures
-      archs = %w(x86_64 i386 arm64 armv7 armv7s)
+      archs = %w(arm64)
       vendored_libraries.each do |library|
         archs = `lipo -info #{library}`.split & archs
       end
